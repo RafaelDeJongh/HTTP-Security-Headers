@@ -1,0 +1,13 @@
+# Security Headers
+<IfModule mod_headers.c>
+Header set Developed-By "Rafael De Jongh"
+Header set Content-Security-Policy: "img-src https: data:; font-src https: data:;"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-XSS-Protection "1; mode=block"
+Header set Referrer-Policy: no-referrer-when-downgrade
+Header set Set-Cookie HttpOnly;Secure
+Header set Expect-CT max-age=86400,enforce
+#Added via CloudFlare
+Header set X-Content-Type-Options nosniff
+Header set Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+</IfModule>
