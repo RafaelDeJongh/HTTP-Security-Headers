@@ -1,12 +1,13 @@
 # Security Headers
 <IfModule mod_headers.c>
-	Header set Developed-By "Sandhills Studio"
+	Header set Developed-By "Yama.Digital"
+	Header set Secured-By "Rafael De Jongh"
 	Header set Content-Security-Policy "img-src 'self' https: data: blob:; font-src 'self' https: data:; base-uri 'self';"
 	Header set X-Frame-Options "SAMEORIGIN"
 	Header set X-XSS-Protection "1; mode=block"
 	Header set Referrer-Policy "no-referrer-when-downgrade"
 	Header set Expect-CT "max-age=86400,enforce"
-	Header set Feature-Policy "fullscreen *;camera 'none';microphone 'none'"
+	Header set Permissions-Policy "execution-while-not-rendered=(self); execution-while-out-of-viewport=(self); fullscreen=(self); legacy-image-formats=(self); oversized-images=(self); sync-xhr=(self); geolocation=(none); midi=(none); notifications=(none); push=(none); microphone=(none); camera=(none); magnetometer=(none); gyroscope=(none); speaker=(none); vibrate=(none); payment=(none)"
 	Header always edit Set-Cookie (.*) "$1;HttpOnly;Secure"
 	Header always unset "X-Powered-By"
 	Header set X-Content-Type-Options "nosniff"
