@@ -6,12 +6,22 @@
 	Header set X-Frame-Options "SAMEORIGIN"
 	Header set X-XSS-Protection "1; mode=block"
 	Header set Referrer-Policy "no-referrer-when-downgrade"
-	Header set Expect-CT "max-age=86400,enforce"
 	Header set Permissions-Policy "execution-while-not-rendered=(self); execution-while-out-of-viewport=(self); fullscreen=(self); legacy-image-formats=(self); oversized-images=(self); sync-xhr=(self); geolocation=(none); midi=(none); notifications=(none); push=(none); microphone=(none); camera=(none); magnetometer=(none); gyroscope=(none); speaker=(none); vibrate=(none); payment=(none)"
-	Header always edit Set-Cookie (.*) "$1;HttpOnly;Secure"
-	Header always unset "X-Powered-By"
+	#Headers overwritten when using Cloudflare
 	Header set X-Content-Type-Options "nosniff"
 	Header set Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+	#Always edit headers
+	Header always edit Server "Arcadia Engine"
+	Header always edit Set-Cookie (.*) "$1;HTTPOnly;Secure;SameSite=none"
+	<IfModule LiteSpeed>ForceSecureCookie httponly secure same_site_none</IfModule>
+	#Always unset headers
+	Header always unset "X-Powered-By"
+	#Allow CORS on custom font files
+	<FilesMatch "\.(ttf|ttc|otf|eot|woff|font.css|css|woff2)$">
+		Header always set Access-Control-Allow-Origin "*"
+		Header set Access-Control-Allow-Methods: "*"
+		Header set Access-Control-Allow-Headers: "Origin, X-Requested-With, Content-Type, Accept, Authorization, Options"
+	</FilesMatch>
 </IfModule>
 
 #Block access to hidden files and directories
